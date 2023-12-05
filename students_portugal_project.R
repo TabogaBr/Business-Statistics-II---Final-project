@@ -74,6 +74,21 @@ abline(v = mean(G3), col = "red")
 table(G3) # distribution of G3
 prop.table(G3) # density of G3
 
+## Correlation boxplots ##
+par(mfrow=c(1,2))
+# Famsize and grades
+boxplot(G3~famsize, data=data, col=c("skyblue", "salmon"), main = "Grades by family size",
+        xlab = "Family size", ylab = "Grades")
+# Internet and grades
+boxplot(G3~internet, data=data, col=c("skyblue", "salmon"), main = "Grades by internet access",
+        xlab = "Internet access", ylab = "Grades")
+# Freetime and grades
+boxplot(G3~freetime_binary, data=data, col=c("skyblue", "salmon"), main = "Grades by freetime",
+        xlab = "Freetime after school", ylab = "Grades")
+# Parent's status and grades
+boxplot(G3~Pstatus, data=data, col=c("skyblue", "salmon"), main = "Grades by parent's cohabitation status",
+        xlab = "Parent's cohabitation status", ylab = "Grades")
+
 # PART II: Inferential Statistics
 
 # qqnom function

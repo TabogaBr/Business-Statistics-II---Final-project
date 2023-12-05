@@ -105,9 +105,10 @@ my.qqnorm=function(x){
 par(mfrow=c(2,2))
 my.qqnorm(famsize)  # my.qqnorm of famsize
 my.qqnorm(internet) # my.qqnorm of internet
-my.qqnorm(freetime) # my.qqnorm of absences
-my.qqnorm(Pstatus) # my.qqnorm of Note
-
+my.qqnorm(freetime) # my.qqnorm of freetime
+my.qqnorm(Pstatus) # my.qqnorm of parent's status
+par(mfrow=c(1,1))
+my.qqnorm(G3) # my.qqnorm of the grades
 
 ############### HT 1 Famsize ###############
 

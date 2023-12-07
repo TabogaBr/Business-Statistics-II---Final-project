@@ -68,13 +68,17 @@ legend("topright", legend = c("Living apart", "Living together"),
        fill = c("skyblue", "salmon"))
 
 # Average grade histogram
-hist(G3, probability = T)
-abline(v = mean(G3), col = "red")
+hist(G3, breaks = 21, col = "white", border = "black", probability = T, main = "Histogram of Grades with Density Plot")
+lines(density(G3), col = "#FF6666", lwd = 3)
+# Fill the area under the density curve
+polygon(density(G3)$x, density(G3)$y, col = rgb(1, 0.4, 0.4, alpha = 0.3), border = NA)
+abline(v = mean(G3), col = "blue", lwd = 3)
+legend("topright", legend = c("Density", "Mean"), col = c("#FF6666", "blue"), lty = c(1, 1), lwd = c(3, 3))
 
 table(G3) # distribution of G3
 prop.table(G3) # density of G3
 
-## Correlation boxplots ##
+## Dependency boxplots ##
 par(mfrow=c(1,2))
 # Famsize and grades
 boxplot(G3~famsize, data=data, col=c("skyblue", "salmon"), main = "Grades by family size",
@@ -88,6 +92,14 @@ boxplot(G3~freetime_binary, data=data, col=c("skyblue", "salmon"), main = "Grade
 # Parent's status and grades
 boxplot(G3~Pstatus, data=data, col=c("skyblue", "salmon"), main = "Grades by parent's cohabitation status",
         xlab = "Parent's cohabitation status", ylab = "Grades")
+
+# Correlation between Freetime and Grades
+cor(freetime, G3)
+# Scatterplot
+plot(freetime, G3, col = "salmon", pch = 20, cex = 2, main = "Correlation between Freetime and Grades", xlab = "Freetime", ylab = "Grades")
+abline(v = mean(freetime), col = "blue")
+abline(h = mean(G3), col = "blue")
+legend("topright", legend = c("Data Points", "Mean"), col = c("salmon", "blue"), pch = c(20, NA), lty = c(NA, 1), cex = 1)
 
 # PART II: Inferential Statistics
 
@@ -184,10 +196,10 @@ estimator_int # 1.20793
 
 ### Variability (variance & CO) ###
 var_int = var(grade_int)/length(grade_int)
-# we calculate the variability if they have acces to the internet
-var_int #0.06377182
+# we calculate the variability if they have access to the internet
+var_int # 0.06377182
 var_noint = var(grade_noint)/length(grade_noint)
-# we calculate the variavility if they don't have acces to the internet
+# we calculate the variavility if they don't have access to the internet
 var_noint # 0.3048845
 var_estimator_int = var_int + var_noint
 var_estimator_int # 0.3686563
@@ -200,6 +212,14 @@ zscore_internet # 1.989441
 # Calculation of p_value with (1 - pnorm(zscore))*2
 pvalue_internet = (1 - pnorm(zscore_internet))*2
 pvalue_internet # 0.04665255
+
+#P-Value graph of internet --> where's the zscore
+c=seq(-3,3,0.01)
+par(mfrow=c(1,1))
+plot(c,dnorm(c,mean=0,sd=1),col="black",type="l", main="z-score of HT of internet access", xlab="sd", ylab="Density")
+abline(v=-1.96, lty=3)
+abline(v=1.96, lty=3)
+abline(v=zscore_internet, col="red",lwd=3)
 
 ### Interval Confidence: confirm our hypothesis of the variable ###
 LCL_int=estimator_int - 1.96 * sqrt(var_estimator_int)
@@ -241,6 +261,14 @@ zscore_pstatus # 1.219675
 pvalue_pstatus = (1 - pnorm(zscore_pstatus))*2
 pvalue_pstatus # 0.2225881
 
+#P-Value graph of parent's cohab. status --> where's the zscore
+c=seq(-3,3,0.01)
+par(mfrow=c(1,1))
+plot(c,dnorm(c,mean=0,sd=1),col="black",type="l", main="z-score of HT of parent's cohabitation status", xlab="sd", ylab="Density")
+abline(v=-1.96, lty=3)
+abline(v=1.96, lty=3)
+abline(v=zscore_pstatus, col="red",lwd=3)
+
 ### Interval Confidence: confirm our hypothesis of the variable ###
 LCL_pstatus=estimator_pstatus - 1.96 * sqrt(var_pstatus)
 LCL_pstatus # -0.5282371
@@ -278,6 +306,14 @@ zscore_freetime # 0.8350373
 # Calculation of p_value with (1 - pnorm(zscore))*2
 pvalue_freetime = (1 - pnorm(zscore_freetime))*2
 pvalue_freetime # 0.4036967
+
+#P-Value graph of freetime --> where's the zscore
+c=seq(-3,3,0.01)
+par(mfrow=c(1,1))
+plot(c,dnorm(c,mean=0,sd=1),col="black",type="l", main="z-score of HT of freetime after school", xlab="sd", ylab="Density")
+abline(v=-1.96, lty=3)
+abline(v=1.96, lty=3)
+abline(v=zscore_freetime, col="red",lwd=3)
 
 ### Interval Confidence: confirm our hypothesis of the variable ###
 LCL_freetime = estimator_freetime - 1.96 * sqrt(var_freetime)

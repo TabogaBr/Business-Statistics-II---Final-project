@@ -147,6 +147,14 @@ pvalue_famsize # 0.0902103
 # p-value > 0.05 (0.0902103 > 0.05) so in the case
 # of our bilateral test we don't reject H0 in favor of H1
 
+#P-Value graph of famsize --> where's the zscore
+c=seq(-3,3,0.01)
+par(mfrow=c(1,1))
+plot(c,dnorm(c,mean=0,sd=1),col="black",type="l", main="z-score of HT of famsize", xlab="sd", ylab="Density")
+abline(v=-1.96, lty=3)
+abline(v=1.96, lty=3)
+abline(v=zscore_famsize, col="red",lwd=3)
+
 ### Interval Confidence: confirm our hypothesis of the variable ###
 # CI de 95%: the 95% deviation of the observations from the mean is smaller than 1.96 standard deviations (SD)
 LCL_famsize=estimator_family - 1.96 * sqrt(var_famsize)

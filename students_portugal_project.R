@@ -94,12 +94,21 @@ boxplot(G3~Pstatus, data=data, col=c("skyblue", "salmon"), main = "Grades by par
         xlab = "Parent's cohabitation status", ylab = "Grades")
 
 # Correlation between Freetime and Grades
-cor(freetime, G3)
+cor(freetime_binary, G3)
 # Scatterplot
-plot(freetime, G3, col = "salmon", pch = 20, cex = 2, main = "Correlation between Freetime and Grades", xlab = "Freetime", ylab = "Grades")
+plot(freetime_binary, G3, col = "salmon", pch = 20, cex = 2, main = "Correlation between Freetime and Grades", xlab = "Freetime", ylab = "Grades")
 abline(v = mean(freetime), col = "blue")
 abline(h = mean(G3), col = "blue")
 legend("topright", legend = c("Data Points", "Mean"), col = c("salmon", "blue"), pch = c(20, NA), lty = c(NA, 1), cex = 1)
+
+# Correlation between family size and Grades
+cor(famsize, G3)
+
+# Correlation between internet access and Grades
+cor(internet, G3)
+
+# Correlation between Pstatus and Grades
+cor(Pstatus, G3)
 
 # PART II: Inferential Statistics
 
